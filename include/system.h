@@ -18,5 +18,7 @@ typedef struct {
     unsigned long free_mem;
     //unsigned long avail_mem; 
     unsigned long swap_total;
+    unsigned long swap_free;
+    
 
 } SystemInfo;
