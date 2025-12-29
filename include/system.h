@@ -3,22 +3,24 @@
 
 typedef struct {
     //total cpu
-    unsigned long total_cpu;
-    unsigned long idle_cpu;
+    TIME total_cpu;
+    TIME idle_cpu;
     
     //each cores
     unsigned int cores;
-    unsigned long* core_total;
-    unsigned long* core_idle;
-    //unsigned long* core_
+    TIME* core_total;
+    TIME* core_idle;
+    //TIME* core_
     
 
     //mem
-    unsigned long total_mem;
-    unsigned long free_mem;
-    //unsigned long avail_mem; 
-    unsigned long swap_total;
-    unsigned long swap_free;
+    TIME total_mem;
+    TIME free_mem;
+    //TIME avail_mem; 
+    TIME swap_total;
+    TIME swap_free;
     
 
 } SystemInfo;
+
+void set_system_info(SystemInfo* system);
