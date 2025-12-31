@@ -27,6 +27,6 @@ int main() {
     // 메모리 해제
     free(sys.core_total);
     free(sys.core_idle);
-    
+    printf("=== Systme Test Finish ===");
     return 0;
 }
