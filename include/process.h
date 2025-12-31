@@ -11,12 +11,12 @@ typedef struct {
     long priority;
 
     //cpu
-    unsigned long utime;
-    unsigned long stime;
+    TIME utime;
+    TIME stime;
 
     //mem
     long vm_rss;
 
-    
-
 } ProcessInfo;
+
+void set_process_info(ProcessInfo* process);
