@@ -5,10 +5,10 @@ typedef struct {
     //process info
     int pid;
     int ppid;
-    int uid;
+    //int uid;
     char comm[BUF_SIZE]; //process name
-    char stat;
-    long priority;
+    char state;
+    //long priority;
 
     //cpu
     TIME utime;
@@ -21,10 +21,11 @@ typedef struct {
 
 typedef struct {
     int count; //프로세스 갯수
+    int max_processes;
     ProcessInfo* processes; //리스트
 
 } ProcessList;
 
-void set_process_info(ProcessInfo* process_list);
+void set_process_info(ProcessList* process_list);
 
-void scan_all_process(ProcessList* process_list);
+void scan_all_pid(ProcessList* process_list);
