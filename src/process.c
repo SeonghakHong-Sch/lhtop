@@ -17,14 +17,14 @@ void set_process_info(ProcessList* process_list) {
         if (!proc_stream) continue; //파일(프로세스) 정상 체크
         
         //파일 파싱 ~~
-        fscanf(proc_stream, "%d (%[^)]) %c %d %*d %*d %*d %*d %*d %*lu %*lu %*lu %*lu %lu %lu %*ld %*ld %*ld %ld %*d %*d %*d %*d %lu",
+        fscanf(proc_stream, "%d (%[^)]) %c %d %*d %*d %*d %*d %*d %*lu %*lu %*lu %*lu %lu %lu %*ld %*ld %*ld %*ld %*d %*d %*d %*d %lu",
             &processes[i].pid,
-            &processes[i].comm,
+            processes[i].comm,
             &processes[i].state,
             &processes[i].ppid,
             &processes[i].utime,
             &processes[i].stime,
-            &processes[i].vm_rss
+            &processes[i].rss
         );
         fclose(proc_stream);
     }

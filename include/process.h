@@ -15,7 +15,7 @@ typedef struct {
     TIME stime;
 
     //mem
-    long vm_rss;
+    TIME rss;
 
 } ProcessInfo;
 
