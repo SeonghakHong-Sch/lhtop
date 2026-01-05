@@ -7,7 +7,7 @@
 int main() {
     SystemInfo prev_sys, curr_sys;
     ProcessList prev_procs = {0}, curr_procs = {0};
-
+    while (1){
     printf("=== Collecting initial system and process data ===\n");
     set_system_info(&prev_sys);
     scan_all_pid(&prev_procs);
@@ -41,7 +41,7 @@ int main() {
     ProcessStats* proc_stats = (ProcessStats*)malloc(sizeof(ProcessStats) * curr_procs.count);
 
     printf("\n=== Calculating process statistics ===\n");
-    cal_proc_stat(proc_stats, &prev_procs, &curr_procs, &curr_sys);
+    cal_proc_stat(proc_stats, &prev_procs, &curr_procs, &prev_sys, &curr_sys);
 
     printf("Total processes analyzed: %d\n", curr_procs.count);
 
@@ -65,17 +65,17 @@ int main() {
                    proc_stats[max_idx].mem_percent * 100);
             proc_stats[max_idx].cpu_percent = -1.0; // 다음 반복에서 제외
         }
-    }
+    }}
 
-    // 메모리 해제
-    free(sys_stats.cores_cpu_percent);
-    free(proc_stats);
-    free(prev_sys.core_total);
-    free(prev_sys.core_idle);
-    free(curr_sys.core_total);
-    free(curr_sys.core_idle);
-    free(prev_procs.processes);
-    free(curr_procs.processes);
+    // // 메모리 해제
+    // free(sys_stats.cores_cpu_percent);
+    // free(proc_stats);
+    // free(prev_sys.core_total);
+    // free(prev_sys.core_idle);
+    // free(curr_sys.core_total);
+    // free(curr_sys.core_idle);
+    // free(prev_procs.processes);
+    // free(curr_procs.processes);
 
     printf("\n=== Stats Test Finish ===\n");
     return 0;
