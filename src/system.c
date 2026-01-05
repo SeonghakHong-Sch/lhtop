@@ -22,6 +22,7 @@ void set_system_info(SystemInfo* system) {
     fscanf(sys_stream, "cpu %lu %lu %lu %lu %lu %lu %lu",
         &cpu_time[0], &cpu_time[1], &cpu_time[2], &cpu_time[3],
         &cpu_time[4], &cpu_time[5], &cpu_time[6]);
+    fgets(line, BUF_SIZE, sys_stream); //개행문자 넘기기;
     
     system->total_cpu = 0;
     for (int i = 0; i < 7; i++) {

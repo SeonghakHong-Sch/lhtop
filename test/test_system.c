@@ -20,7 +20,7 @@ int main() {
     
     printf("\n=== Memory Info ===\n");
     printf("Total Memory: %lu kB\n", sys.total_mem);
-    printf("Free Memory: %lu kB\n", sys.free_mem);
+    printf("Free Memory: %lu kB\n", sys.avail_mem);
     printf("Swap Total: %lu kB\n", sys.swap_total);
     printf("Swap Free: %lu kB\n", sys.swap_free);
     
