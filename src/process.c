@@ -37,12 +37,14 @@ void scan_all_pid(ProcessList* process_list) {
 
     int* max_processes = &process_list->max_processes; //변수 명 너무 길어서...
 
-    process_list->processes =(ProcessInfo*) malloc(sizeof(ProcessInfo)* INITIAL_CAPACITY);
-    *max_processes = INITIAL_CAPACITY;
-
+    if (process_list->processes == NULL) {
+        process_list->processes =(ProcessInfo*) malloc(sizeof(ProcessInfo)* INITIAL_CAPACITY);
+        *max_processes = INITIAL_CAPACITY;
+    }
+    
     struct dirent* dient;
     while ((dient = readdir(proc_dir))) {
-        if (!isdigit(dient->d_name[0])) continue;
+        if (!isdigit(dient->d_name[0])) continue; //프로세스 directory만 검거
         process_list->processes[i].pid = atoi(dient->d_name);
         i++;
 
