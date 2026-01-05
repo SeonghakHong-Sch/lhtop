@@ -29,6 +29,6 @@ typedef struct {
 
 void cal_system_stat(SystemStats* result, SystemInfo* prev_sys, SystemInfo* curr_sys);
 
-void cal_proc_stat(ProcessStats result[], ProcessList* prev_procs, ProcessList* curr_procs, SystemInfo* sys);
+void cal_proc_stat(ProcessStats result[], ProcessList* prev_procs, ProcessList* curr_procs, SystemInfo* prev_sys, SystemInfo* curr_sys);
 
 ProcessInfo* search_proc_by_pid(ProcessList* prev_procs, int pid);

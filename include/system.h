@@ -17,7 +17,7 @@ typedef struct {
 
     //mem
     TIME total_mem;
-    TIME free_mem;
+    TIME avail_mem;
     //TIME avail_mem; 
     TIME swap_total;
     TIME swap_free;

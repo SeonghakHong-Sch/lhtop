@@ -47,7 +47,7 @@ void set_system_info(SystemInfo* system) {
 
     while (fgets(line, BUF_SIZE, sys_stream)) {
         if (sscanf(line, "MemTotal: %lu kB", &system->total_mem) == 1) continue;
-        if (sscanf(line, "MemFree: %lu kB", &system->free_mem) == 1) continue;
+        if (sscanf(line, "MemAvailable: %lu kB", &system->avail_mem) == 1) continue;
         if (sscanf(line, "SwapTotal: %lu kB", &system->swap_total) == 1) continue;
         if (sscanf(line, "SwapFree: %lu kB", &system->swap_free) == 1) continue;
     }

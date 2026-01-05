@@ -20,32 +20,34 @@ void cal_system_stat(SystemStats* result, SystemInfo* prev_sys, SystemInfo* curr
     }
 
     //mem
-    result->mem_percent = (curr_sys->total_mem - curr_sys->free_mem) / (float) curr_sys->total_mem;
+    result->mem_percent = (curr_sys->total_mem - curr_sys->avail_mem) / (float) curr_sys->total_mem;
     //swap
-    result->mem_percent = (curr_sys->swap_total - curr_sys->swap_free) / (float) curr_sys->swap_total;
+    result->swap_percent = (curr_sys->swap_total - curr_sys->swap_free) / (float) curr_sys->swap_total;
 }
 
-void cal_proc_stat(ProcessStats result[], ProcessList* prev_procs, ProcessList* curr_procs, SystemInfo* sys) {    
+void cal_proc_stat(ProcessStats result[], ProcessList* prev_procs, ProcessList* curr_procs, SystemInfo* prev_sys, SystemInfo* curr_sys) {    
     if (curr_procs->count <= 5000) { //process undter 5000, linear matching
         for (int i = 0; i < curr_procs->count; i++) {
             ProcessInfo* curr_proc = &curr_procs->processes[i];
             int PID = curr_proc->pid;
-            ProcessInfo* prev_proc = search_proc_by_pid(prev_procs, PID);
+            ProcessInfo* prev_proc = search_proc_by_pid(prev_procs, PID); //현 프로세스 기준으로 서칭
             
             if (!prev_proc) {
                 result[i].pid = PID;
                 result[i].cpu_percent = 0.0;
-                result[i].mem_percent = (curr_proc->rss) / (float) sys->total_mem * PAGE_SIZE;
+                result[i].mem_percent = (curr_proc->rss * PAGE_SIZE) / (float) curr_sys->total_mem;
                 continue;
             }
             
             TIME d_u_time = curr_proc->utime - prev_proc->utime;
             TIME d_s_time = curr_proc->stime - prev_proc->stime;
             TIME d_total_time = d_u_time + d_s_time; //delta time while 1 sec
+            TIME d_total_sys = curr_sys->total_cpu - prev_sys->total_cpu;
 
             result[i].pid = PID;
-            result[i].cpu_percent = (d_total_time) / (float) JIFFIES;
-            result[i].mem_percent = (curr_proc->rss * PAGE_SIZE) / (float) sys->total_mem;
+            //result[i].cpu_percent = (d_total_time) / (float) (JIFFIES * CUSTOM_CLK); //고정상수 쓰기에는 너무 위험하다
+            result[i].cpu_percent = (d_total_time) / (float) d_total_sys;
+            result[i].mem_percent = (curr_proc->rss * PAGE_SIZE) / (float) curr_sys->total_mem;
             
         }
     } else {
